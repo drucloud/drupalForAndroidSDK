@@ -3,10 +3,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.android.tools.build:gradle:0.6.3'
     }
 }
-apply plugin: 'android'
+apply plugin: 'android-library'
 
 repositories {
     mavenCentral()
@@ -20,6 +20,14 @@ android {
         minSdkVersion 7
         targetSdkVersion 18
     }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src']
+        }
+    }
+
 }
 
 dependencies {

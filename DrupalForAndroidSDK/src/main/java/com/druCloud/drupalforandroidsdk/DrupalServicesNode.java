@@ -10,33 +10,33 @@ import java.util.ArrayList;
 public class DrupalServicesNode extends DrupalOAuth implements DrupalServicesResource {
 
 
-    protected DrupalServicesNode(String baseURI, String endpoint, String tokenKey, String tokenSecret) {
+    public DrupalServicesNode(String baseURI, String endpoint, String tokenKey, String tokenSecret) {
         super(baseURI, endpoint, tokenKey, tokenSecret);
         this.setResource("node");
     }
 
     @Override
-    public void create(ArrayList<NameValuePair> params) {
-        this.httpPostRequest(this.getURI(), params);
+    public String create(ArrayList<NameValuePair> params) {
+        return this.httpPostRequest(this.getURI(), params);
     }
 
     @Override
-    public void retrieve(int id) {
-        this.httpGetRequest(this.getURI() + "/" + id);
+    public String retrieve(int id) {
+        return this.httpGetRequest(this.getURI() + "/" + id);
     }
 
     @Override
-    public void update(int id, ArrayList<NameValuePair> params) {
-        this.httpPutRequest(this.getURI() + "/" + id, params);
+    public String update(int id, ArrayList<NameValuePair> params) {
+        return this.httpPutRequest(this.getURI() + "/" + id, params);
     }
 
     @Override
-    public void delete(int id) {
-        this.httpDeleteRequest(this.getURI() + "/" + id);
+    public String delete(int id) {
+        return this.httpDeleteRequest(this.getURI() + "/" + id);
     }
 
     @Override
-    public void index() {
-        this.httpGetRequest(this.getURI());
+    public String index() {
+        return this.httpGetRequest(this.getURI());
     }
 }

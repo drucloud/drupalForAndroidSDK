@@ -1,4 +1,4 @@
-package com.druCloud.drupalforandroidsdk;
+package main.java.com.druCloud.drupalforandroidsdk;
 
 import android.net.Uri;
 
@@ -56,13 +56,13 @@ public class DrupalOAuth {
         this.endpoint = endpoint;
     }
 
-    public Boolean httpGetRequest (String uri) {
+    public String httpGetRequest (String uri) {
         HttpGet request = new HttpGet(uri);
         return httpSendRequest(request);
     }
 
     // Only GET request contains query parameters.
-    public Boolean httpGetRequest (String uri, ArrayList<NameValuePair> params)
+    public String httpGetRequest (String uri, ArrayList<NameValuePair> params)
     {
         Uri.Builder uriBuilder = Uri.parse(uri).buildUpon();
         for (NameValuePair param : params) {
@@ -73,7 +73,7 @@ public class DrupalOAuth {
         return httpSendRequest(request);
     }
 
-    public Boolean httpPostRequest (String uri, ArrayList<NameValuePair> params)
+    public String httpPostRequest (String uri, ArrayList<NameValuePair> params)
     {
         HttpPost request = new HttpPost(uri);
         // assign parameters to request
@@ -85,13 +85,13 @@ public class DrupalOAuth {
         return httpSendRequest(request);
     }
 
-    public Boolean httpDeleteRequest (String uri)
+    public String httpDeleteRequest (String uri)
     {
         HttpDelete request = new HttpDelete(uri);
         return httpSendRequest(request);
     }
 
-    public Boolean httpPutRequest (String uri, ArrayList<NameValuePair> params)
+    public String httpPutRequest (String uri, ArrayList<NameValuePair> params)
     {
         HttpPut request = new HttpPut(uri);
         // assign parameters to request
@@ -103,7 +103,7 @@ public class DrupalOAuth {
         return httpSendRequest(request);
     }
 
-    private <T extends HttpRequestBase> boolean httpSendRequest (T request)
+    private <T extends HttpRequestBase> String httpSendRequest (T request)
     {
         OAuthConsumer consumer = new CommonsHttpOAuthConsumer(this.tokenKey, this.tokenSecret);
         // sign the request (consumer is a Signpost DefaultOAuthConsumer)
@@ -141,6 +141,7 @@ public class DrupalOAuth {
                     String responseBody = EntityUtils.toString(resEntity);
                     // debug
                     System.out.println("The response is:" + responseBody);
+                    return responseBody;
                 }
                 //get response headers
                 Header[] headers3 = response.getAllHeaders();
@@ -151,9 +152,8 @@ public class DrupalOAuth {
             }
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
 
-        return true;
+        return "";
     }
 }

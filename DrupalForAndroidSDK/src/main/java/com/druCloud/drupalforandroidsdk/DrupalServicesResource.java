@@ -9,13 +9,13 @@ import java.util.ArrayList;
  */
 public interface DrupalServicesResource {
 
-    public void create(ArrayList<NameValuePair> params);
+    public String create(ArrayList<NameValuePair> params);
 
-    public void retrieve(int id);
+    public String retrieve(int id);
 
-    public void update(int id, ArrayList<NameValuePair> params);
+    public String update(int id, ArrayList<NameValuePair> params);
 
-    public void delete(int id);
+    public String delete(int id);
 
-    public void index();
+    public String index();
 }
