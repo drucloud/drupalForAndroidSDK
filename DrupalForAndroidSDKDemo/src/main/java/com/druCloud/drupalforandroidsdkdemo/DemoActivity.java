@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.druCloud.drupalforandroidsdk;
+import com.druCloud.drupalforandroidsdk.*;
 
 public class DemoActivity extends ActionBarActivity {
 

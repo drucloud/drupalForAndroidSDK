@@ -1,1 +1,1 @@
-include ':DrupalForAndroidSDK', ':DrupalForAndroidSDKDemo'
+include ':DrupalForAndroidSDKDemo', ':DrupalForAndroidSDK'

@@ -1,4 +1,4 @@
-package main.java.com.druCloud.drupalforandroidsdk;
+package com.druCloud.drupalforandroidsdk;
 
 import android.net.Uri;
 
