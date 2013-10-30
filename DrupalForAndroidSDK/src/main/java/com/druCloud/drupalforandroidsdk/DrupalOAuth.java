@@ -49,7 +49,7 @@ public class DrupalOAuth {
     }
 
     protected String getURI() {
-        return this.baseURI + "/" + this.endpoint;
+        return this.baseURI + "/" + this.endpoint + "/" + this.resource;
     }
 
     public void setEndpoint(String endpoint) {
@@ -140,16 +140,20 @@ public class DrupalOAuth {
                 if (resEntity != null) {
                     String responseBody = EntityUtils.toString(resEntity);
                     // debug
-                    System.out.println("The response is:" + responseBody);
+                    System.out.println("fuck The response is:" + responseBody);
                     return responseBody;
                 }
-                //get response headers
-                Header[] headers3 = response.getAllHeaders();
-                for (Header header : headers3) {
-                    // debug
-                    System.out.println(header.getName() + ": " + header.getValue());
-                }
             }
+
+            //get request headers
+            Header[] headers2 = request.getAllHeaders();
+            for (Header header : headers2) {
+                System.out.println(header.getName()
+                        + ": " + header.getValue());
+            }
+
+            System.out.println("fuck!! not 200 url is" + request.getURI());
+            System.out.println("fuck!! not 200 response is" + response.getStatusLine().getReasonPhrase() + "status code" + response.getStatusLine().getStatusCode());
         } catch (IOException e) {
             e.printStackTrace();
         }

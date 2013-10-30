@@ -3,6 +3,7 @@ package com.druCloud.drupalforandroidsdkdemo;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,9 +25,20 @@ public class DemoActivity extends ActionBarActivity {
                     .commit();
         }
 
-        DrupalServicesNode oauth = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "AKIAIGFK6ULQPWPWGNXA", "iwuA0c+DZLd5K2neXo3rWvOIA8+nIQAo0vuB1Alf");
-        String response = oauth.retrieve(1);
-        System.out.println("fuck!!" + response.toString());
+        new Thread(){
+            public void run(){
+                try {
+                    // Here give you a test link
+                    DrupalServicesNode oauth = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "suhWgG9GEMe9tAo2EneBBDVXAnpkXd9j", "ht9mQMR2n2cKrtjknH9gWyMrzq4YPMao");
+                    System.out.println("fuck!! oauth" + oauth.toString());
+                    String response = oauth.retrieve(1346);
+                    // It will print out a response of node get
+                    System.out.println("fuck!! response" + response);
+                } catch (Exception e) {
+                    Log.e("HTTP GET:", e.toString());
+                }
+            }
+        }.start();
     }
 
 
