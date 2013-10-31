@@ -5,11 +5,9 @@ Android SDK wokring with Drupal Services
 
 Installation
 ==================
-You need to use
+You need below for this project:
 
 Android studio 0.3.+ Gradle 1.8
-
-up for this project.
 
 The project implement with gradle, so please gradle sync before compile the project. Since Android studio is actively changed, the build.gradle may got something not functioning.
 
@@ -52,8 +50,8 @@ To-do
 
 Dependencies
 ===============
-signpost library
-Apache http library
+1. Signpost library
+2. Apache http library
 
 
 Troubleshooting
