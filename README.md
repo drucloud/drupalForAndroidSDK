@@ -42,3 +42,24 @@ Example:
                 }
             }
         }.start();
+
+To-do
+===============
+1. Add more web services support based on default Drupal services 3.x
+2. Support services views
+3. Support some AWS SDK features
+4. API documentation
+
+Dependencies
+===============
+signpost library
+Apache http library
+
+
+Troubleshooting
+================
+If you are getting Access denied, or API Key not valid, double check that your key settings are setup correctly at admin/build/services/keys and double check that permissions are correct for your user and anonymous.
+
+Questions
+===============
+Checkout the Issue queue, or create new issues 
