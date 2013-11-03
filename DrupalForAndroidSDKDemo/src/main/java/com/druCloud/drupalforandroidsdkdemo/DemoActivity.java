@@ -32,7 +32,7 @@ public class DemoActivity extends ActionBarActivity {
             public void run(){
                 try {
                     // Here give you a test link
-                    DrupalServicesNode oauth = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "NPTyBa4hyhbamsoJF6LEeKVZaGT4GDwc", "5PKaL3a26PJVjvDUye9TbiV5ra7ZiwiQ");
+                    DrupalServicesNode oauth = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "suhWgG9GEMe9tAo2EneBBDVXAnpkXd9j", "ht9mQMR2n2cKrtjknH9gWyMrzq4YPMao");
                     //String response = oauth.retrieve(1346);
 
                     BasicNameValuePair[] data = new BasicNameValuePair[4];
