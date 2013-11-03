@@ -1,6 +1,7 @@
 package com.druCloud.drupalforandroidsdk;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class DrupalServicesNode extends DrupalOAuth implements DrupalServicesRes
     }
 
     @Override
-    public String create(ArrayList<NameValuePair> params) {
+    public String create(BasicNameValuePair[] params) {
         return this.httpPostRequest(this.getURI(), params);
     }
 
@@ -26,7 +27,7 @@ public class DrupalServicesNode extends DrupalOAuth implements DrupalServicesRes
     }
 
     @Override
-    public String update(int id, ArrayList<NameValuePair> params) {
+    public String update(int id, BasicNameValuePair[] params) {
         return this.httpPutRequest(this.getURI() + "/" + id, params);
     }
 

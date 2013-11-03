@@ -14,11 +14,13 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
@@ -36,6 +38,8 @@ public class DrupalOAuth {
     private String tokenSecret = "";
     private String endpoint = "rest";
     protected String resource = "";
+
+    private List<NameValuePair> pairsToSend = new ArrayList<NameValuePair>();
 
     public DrupalOAuth (String baseURI, String endpoint, String tokenKey, String tokenSecret) {
         this.baseURI = baseURI;
@@ -62,10 +66,14 @@ public class DrupalOAuth {
     }
 
     // Only GET request contains query parameters.
-    public String httpGetRequest (String uri, ArrayList<NameValuePair> params)
+    public String httpGetRequest (String uri, BasicNameValuePair[] params)
     {
+        for (int i = 0; i < params.length; i++) {
+            pairsToSend.add(params[i]);
+        }
+
         Uri.Builder uriBuilder = Uri.parse(uri).buildUpon();
-        for (NameValuePair param : params) {
+        for (NameValuePair param : pairsToSend) {
             uriBuilder.appendQueryParameter(param.getName(), param.getValue());
         }
         uri = uriBuilder.build().toString();
@@ -73,15 +81,24 @@ public class DrupalOAuth {
         return httpSendRequest(request);
     }
 
-    public String httpPostRequest (String uri, ArrayList<NameValuePair> params)
-    {
+    public String httpPostRequest (String uri, BasicNameValuePair[] params) {
         HttpPost request = new HttpPost(uri);
+
+        for (int i = 0; i < params.length; i++) {
+            pairsToSend.add(params[i]);
+        }
+
         // assign parameters to request
         try {
-            request.setEntity(new UrlEncodedFormEntity(params));
+            HttpEntity resEntity = new UrlEncodedFormEntity(pairsToSend);
+            request.setEntity(resEntity);
+            System.out.println("request is " + EntityUtils.toString(resEntity));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         return httpSendRequest(request);
     }
 
@@ -91,12 +108,17 @@ public class DrupalOAuth {
         return httpSendRequest(request);
     }
 
-    public String httpPutRequest (String uri, ArrayList<NameValuePair> params)
+    public String httpPutRequest (String uri, BasicNameValuePair[] params)
     {
         HttpPut request = new HttpPut(uri);
+
+        for (int i = 0; i < params.length; i++) {
+            pairsToSend.add(params[i]);
+        }
+
         // assign parameters to request
         try {
-            request.setEntity(new UrlEncodedFormEntity(params));
+            request.setEntity(new UrlEncodedFormEntity(pairsToSend));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -119,7 +141,7 @@ public class DrupalOAuth {
 
         // set header
         request.setHeader("Accept", "application/json");
-        request.setHeader("content-type", "application/json");
+        request.setHeader("content-type", "application/x-www-form-urlencoded");
 
         // replace header to Drupal specific
         Header[] headers = request.getAllHeaders();
@@ -152,8 +174,7 @@ public class DrupalOAuth {
                         + ": " + header.getValue());
             }
 
-            System.out.println("fuck!! not 200 url is" + request.getURI());
-            System.out.println("fuck!! not 200 response is" + response.getStatusLine().getReasonPhrase() + "status code" + response.getStatusLine().getStatusCode());
+            System.out.println("fuck!! not 200 " + response.getStatusLine().getReasonPhrase() + " " + response.getStatusLine().getStatusCode());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 
 import com.druCloud.drupalforandroidsdk.*;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 public class DemoActivity extends ActionBarActivity {
 
     @Override
@@ -29,10 +32,26 @@ public class DemoActivity extends ActionBarActivity {
             public void run(){
                 try {
                     // Here give you a test link
-                    DrupalServicesNode oauth = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "suhWgG9GEMe9tAo2EneBBDVXAnpkXd9j", "ht9mQMR2n2cKrtjknH9gWyMrzq4YPMao");
-                    System.out.println("fuck!! oauth" + oauth.toString());
-                    String response = oauth.retrieve(1346);
-                    // It will print out a response of node get
+                    DrupalServicesNode oauth = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "NPTyBa4hyhbamsoJF6LEeKVZaGT4GDwc", "5PKaL3a26PJVjvDUye9TbiV5ra7ZiwiQ");
+                    //String response = oauth.retrieve(1346);
+
+                    BasicNameValuePair[] data = new BasicNameValuePair[4];
+
+                    data[0] = new BasicNameValuePair("type", "article");
+                    data[1] = new BasicNameValuePair("title", "Test android create body 1");
+
+                    String bodyValue = "testing123";
+                    data[2] = new BasicNameValuePair("body[und][0][value]", bodyValue);
+                    data[3] = new BasicNameValuePair("body[und][0][format]", "filtered_html");
+
+                    // or according to https://gist.github.com/kylebrowning/affc9864487bb1b9c918
+
+                    //data[0] = new BasicNameValuePair("node[type]", "article");
+                    //data[1] = new BasicNameValuePair("node[title]", "Test android create 2");
+
+                    String response = oauth.create(data);
+
+                    // It will print out the response
                     System.out.println("fuck!! response" + response);
                 } catch (Exception e) {
                     Log.e("HTTP GET:", e.toString());

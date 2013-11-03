@@ -1,6 +1,7 @@
 package com.druCloud.drupalforandroidsdk;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import java.util.ArrayList;
 
@@ -9,11 +10,11 @@ import java.util.ArrayList;
  */
 public interface DrupalServicesResource {
 
-    public String create(ArrayList<NameValuePair> params);
+    public String create(BasicNameValuePair[] params);
 
     public String retrieve(int id);
 
-    public String update(int id, ArrayList<NameValuePair> params);
+    public String update(int id, BasicNameValuePair[] params);
 
     public String delete(int id);
 
