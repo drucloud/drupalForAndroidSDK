@@ -61,3 +61,25 @@ If you are getting Access denied, or API Key not valid, double check that your k
 Questions
 ===============
 Checkout the Issue queue, or create new issues 
+
+Examples
+===============
+Creating a node
+
+Example:
+
+                    BasicNameValuePair[] data = new BasicNameValuePair[4];
+
+                    data[0] = new BasicNameValuePair("type", "article");
+                    data[1] = new BasicNameValuePair("title", "Test android create body 1");
+
+                    String bodyValue = "testing123";
+                    data[2] = new BasicNameValuePair("body[und][0][value]", bodyValue);
+                    data[3] = new BasicNameValuePair("body[und][0][format]", "filtered_html");
+
+                    // or according to https://gist.github.com/kylebrowning/affc9864487bb1b9c918
+
+                    //data[0] = new BasicNameValuePair("node[type]", "article");
+                    //data[1] = new BasicNameValuePair("node[title]", "Test android create 2");
+
+                    String response = oauth.create(data);
