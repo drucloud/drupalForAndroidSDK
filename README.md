@@ -83,3 +83,12 @@ Example:
                     //data[1] = new BasicNameValuePair("node[title]", "Test android create 2");
 
                     String response = oauth.create(data);
+
+To-Do
+==============
+
+1. Support single server oauth3legged
+2. Add default features work with Drupal services 3.x
+3. Support other project like Eclipse
+
+Call for help ~ :)

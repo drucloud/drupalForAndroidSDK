@@ -90,9 +90,7 @@ public class DrupalOAuth {
 
         // assign parameters to request
         try {
-            HttpEntity resEntity = new UrlEncodedFormEntity(pairsToSend);
-            request.setEntity(resEntity);
-            System.out.println("request is " + EntityUtils.toString(resEntity));
+            request.setEntity(new UrlEncodedFormEntity(pairsToSend));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -162,7 +160,7 @@ public class DrupalOAuth {
                 if (resEntity != null) {
                     String responseBody = EntityUtils.toString(resEntity);
                     // debug
-                    System.out.println("fuck The response is:" + responseBody);
+                    System.out.println("The response is:" + responseBody);
                     return responseBody;
                 }
             }

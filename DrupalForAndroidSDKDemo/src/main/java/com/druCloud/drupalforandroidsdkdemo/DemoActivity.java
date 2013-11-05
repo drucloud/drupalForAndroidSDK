@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.druCloud.drupalforandroidsdk.*;
-
-import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 public class DemoActivity extends ActionBarActivity {
