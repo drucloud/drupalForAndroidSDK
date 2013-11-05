@@ -47,6 +47,11 @@ To-do
 2. Support services views
 3. Support some AWS SDK features
 4. API documentation
+5. Support single server oauth3legged
+6. Support other project like Eclipse
+
+Call for help ~ :)
+
 
 Dependencies
 ===============
@@ -84,11 +89,3 @@ Example:
 
                     String response = oauth.create(data);
 
-To-Do
-==============
-
-1. Support single server oauth3legged
-2. Add default features work with Drupal services 3.x
-3. Support other project like Eclipse
-
-Call for help ~ :)
