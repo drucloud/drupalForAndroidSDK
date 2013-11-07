@@ -1,17 +1,17 @@
 package com.druCloud.drupalforandroidsdk;
 
-import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 /**
- * Created by jimmyko on 10/13/13.
+ * Created by keithyau on 11/7/13.
  */
-public class DrupalServicesNode extends DrupalOAuth implements DrupalServicesResource {
+
+public class DrupalServicesFile extends DrupalOAuth implements DrupalServicesResource {
 
 
-    public DrupalServicesNode(String baseURI, String endpoint, String tokenKey, String tokenSecret) {
+    public DrupalServicesFile(String baseURI, String endpoint, String tokenKey, String tokenSecret) {
         super(baseURI, endpoint, tokenKey, tokenSecret);
-        this.setResource("node");
+        this.setResource("file");
     }
 
     @Override

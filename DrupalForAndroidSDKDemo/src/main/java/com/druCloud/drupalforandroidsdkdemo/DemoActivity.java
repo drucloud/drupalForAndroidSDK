@@ -1,8 +1,11 @@
 package com.druCloud.drupalforandroidsdkdemo;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +15,8 @@ import android.view.ViewGroup;
 
 import com.druCloud.drupalforandroidsdk.*;
 import org.apache.http.message.BasicNameValuePair;
+
+import java.io.ByteArrayOutputStream;
 
 public class DemoActivity extends ActionBarActivity {
 
@@ -30,27 +35,48 @@ public class DemoActivity extends ActionBarActivity {
             public void run(){
                 try {
                     // Here give you a test link
-                    DrupalServicesNode oauth = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "suhWgG9GEMe9tAo2EneBBDVXAnpkXd9j", "ht9mQMR2n2cKrtjknH9gWyMrzq4YPMao");
-                    //String response = oauth.retrieve(1346);
+                    DrupalServicesNode DruNode = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "suhWgG9GEMe9tAo2EneBBDVXAnpkXd9j", "ht9mQMR2n2cKrtjknH9gWyMrzq4YPMao");
+                    String responseNodeGet = DruNode.retrieve(1346);
+                    System.out.println("Nodeget!! response" + responseNodeGet);
 
-                    BasicNameValuePair[] data = new BasicNameValuePair[4];
-
+                    /*
                     data[0] = new BasicNameValuePair("type", "article");
                     data[1] = new BasicNameValuePair("title", "Test android create body 1");
 
                     String bodyValue = "testing123";
                     data[2] = new BasicNameValuePair("body[und][0][value]", bodyValue);
                     data[3] = new BasicNameValuePair("body[und][0][format]", "filtered_html");
+                    */
 
                     // or according to https://gist.github.com/kylebrowning/affc9864487bb1b9c918
 
                     //data[0] = new BasicNameValuePair("node[type]", "article");
                     //data[1] = new BasicNameValuePair("node[title]", "Test android create 2");
 
-                    String response = oauth.create(data);
+                    // Attach file
+                    // File upload feature only works on services 3.x-dev 2013-Oct-11
+                    DrupalServicesFile DruFile = new DrupalServicesFile("http://dev-oapi.mobingi.com", "test", "<your api key>", "<your api secret>");
+
+                    BasicNameValuePair[] data = new BasicNameValuePair[2];
+                    //Bitmap bm = BitmapFactory.decodeFile("../ic_launcher-web.png");
+                    Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bm.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                    byte[] bypeImage = baos.toByteArray();
+                    String base64image = Base64.encodeToString(bypeImage, Base64.DEFAULT);
+                    String filesize = String.valueOf(base64image.length());
+
+                    data[0] = new BasicNameValuePair("filename", "yourFileNameOnDrupal.png");
+                    data[1] = new BasicNameValuePair("file", base64image );
+                    //data[1] = new BasicNameValuePair("uid", "4");
+                    //data[3] = new BasicNameValuePair("filesize", filesize);
+                    //data[4] = new BasicNameValuePair("filemime", "image/png"); //or others
+                    //data[1] = new BasicNameValuePair("target_uri", "pictures/yourFileNameOnDrupal.png");
+
+                    String responseFileCreate = DruFile.create(data);
 
                     // It will print out the response
-                    System.out.println("fuck!! response" + response);
+                    System.out.println("FileCreate!! response " + filesize +responseFileCreate);
                 } catch (Exception e) {
                     Log.e("HTTP GET:", e.toString());
                 }

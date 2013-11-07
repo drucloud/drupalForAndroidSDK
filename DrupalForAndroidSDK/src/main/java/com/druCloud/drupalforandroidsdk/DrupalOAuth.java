@@ -91,6 +91,7 @@ public class DrupalOAuth {
         // assign parameters to request
         try {
             request.setEntity(new UrlEncodedFormEntity(pairsToSend));
+            System.out.println("the request is: " + request.getURI() + EntityUtils.toString(request.getEntity()));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -173,6 +174,7 @@ public class DrupalOAuth {
             }
 
             System.out.println("fuck!! not 200 " + response.getStatusLine().getReasonPhrase() + " " + response.getStatusLine().getStatusCode());
+            System.out.println("fuck!! not 200 Called URL" + request.getURI());
         } catch (IOException e) {
             e.printStackTrace();
         }
