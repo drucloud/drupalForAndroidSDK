@@ -13,6 +13,8 @@ The project implement with gradle, so please gradle sync before compile the proj
 
 The project is not yet ready for production !!
 
+Installation guide: https://github.com/drucloud/drupalForAndroidSDK/wiki/Installation-guide
+
 Authentication
 ==================
 
