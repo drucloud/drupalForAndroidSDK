@@ -21,6 +21,9 @@ Authentication
 The project right now supports 2 legged oauth while real 3 legged case please reference:
 https://drupal.org/project/oauth3legged_client
 
+It also supports session auth and flexable to add any auth plugin.
+Just use .setAuth method, see DemoActivity
+
 We currently dont have plan to support single server 3 legged oauth as it is not that meaningful. 
 Please let us know if you have this requirement.
 
@@ -31,12 +34,11 @@ Example:
         new Thread(){
             public void run(){
                 try {
-                    // Here give you a test link
-                    DrupalServicesNode oauth = new DrupalServicesNode("your web server", "endpoint", "appkey", "appsecret");
-		    //The node number you want to retrieve
-                    String response = oauth.retrieve(1346);
-                    // It will print out a response of node get
-                    System.out.println("response json" + response);
+                    //Session Auth example
+                    DrupalServicesNode DruNode = new DrupalServicesNode("http://dev-oapi.mobingi.com", "stub" );
+                    DruNode.setAuth(new DrupalAuthSession("admin", "jingan2world"));
+                    String responseNodeGet = DruNode.retrieve(1346);
+                    System.out.println("New Session test response is :" + responseNodeGet);
                 } catch (Exception e) {
                     Log.e("HTTP GET:", e.toString());
                 }
