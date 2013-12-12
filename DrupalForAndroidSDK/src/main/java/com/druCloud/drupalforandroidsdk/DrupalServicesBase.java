@@ -8,10 +8,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -31,21 +31,23 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 /**
  * Created by jimmyko on 10/13/13.
  */
-public class DrupalOAuth {
+public class DrupalServicesBase {
 
     private String baseURI = "";
-    private String tokenKey = "";
-    private String tokenSecret = "";
     private String endpoint = "rest";
     protected String resource = "";
+    private DrupalAuth auth;
 
     private List<NameValuePair> pairsToSend = new ArrayList<NameValuePair>();
 
-    public DrupalOAuth (String baseURI, String endpoint, String tokenKey, String tokenSecret) {
+    public DrupalServicesBase(String baseURI, String endpoint) {
         this.baseURI = baseURI;
         this.endpoint = endpoint;
-        this.tokenKey = tokenKey;
-        this.tokenSecret = tokenSecret;
+    }
+
+    public void setAuth(DrupalAuth auth) {
+        this.auth = auth;
+        auth.initAuth(baseURI, endpoint);
     }
 
     public void setResource (String resource) {
@@ -126,30 +128,11 @@ public class DrupalOAuth {
 
     private <T extends HttpRequestBase> String httpSendRequest (T request)
     {
-        OAuthConsumer consumer = new CommonsHttpOAuthConsumer(this.tokenKey, this.tokenSecret);
-        // sign the request (consumer is a Signpost DefaultOAuthConsumer)
-        try {
-            consumer.sign(request);
-        } catch (OAuthMessageSignerException e) {
-            e.printStackTrace();
-        } catch (OAuthExpectationFailedException e) {
-            e.printStackTrace();
-        } catch (OAuthCommunicationException e) {
-            e.printStackTrace();
-        }
+        this.auth.initRequest(request);
 
         // set header
         request.setHeader("Accept", "application/json");
         request.setHeader("content-type", "application/x-www-form-urlencoded");
-
-        // replace header to Drupal specific
-        Header[] headers = request.getAllHeaders();
-        for (Header header : headers) {
-            if (header.getName().equals("Authorization")) {
-                String temp = header.getValue().replace("OAuth", "OAuth realm=\"" + this.baseURI + "\"");
-                request.setHeader("Authorization", temp);
-            }
-        }
 
         // send the request
         HttpClient client = new DefaultHttpClient();
@@ -166,6 +149,15 @@ public class DrupalOAuth {
                 }
             }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+}
+
+/* debug code
             //get request headers
             Header[] headers2 = request.getAllHeaders();
             for (Header header : headers2) {
@@ -175,10 +167,4 @@ public class DrupalOAuth {
 
             System.out.println("fuck!! not 200 " + response.getStatusLine().getReasonPhrase() + " " + response.getStatusLine().getStatusCode());
             System.out.println("fuck!! not 200 Called URL" + request.getURI());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "";
-    }
-}
+ */

@@ -5,10 +5,10 @@ import org.apache.http.message.BasicNameValuePair;
 /**
  * Created by keithyau on 11/7/13.
  */
-public class DrupalServicesTaxonomy_vocabulary extends DrupalOAuth implements DrupalServicesResource {
+public class DrupalServicesTaxonomy_vocabulary extends DrupalServicesBase implements DrupalServicesResource {
 
-    public DrupalServicesTaxonomy_vocabulary(String baseURI, String endpoint, String tokenKey, String tokenSecret) {
-        super(baseURI, endpoint, tokenKey, tokenSecret);
+    public DrupalServicesTaxonomy_vocabulary(String baseURI, String endpoint) {
+        super(baseURI, endpoint);
         this.setResource("taxonomy_vocabulary");
     }
 

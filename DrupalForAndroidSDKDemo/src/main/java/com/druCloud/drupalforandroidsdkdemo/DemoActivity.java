@@ -34,28 +34,21 @@ public class DemoActivity extends ActionBarActivity {
         new Thread(){
             public void run(){
                 try {
-                    // Here give you a test link
-                    DrupalServicesNode DruNode = new DrupalServicesNode("http://dev-oapi.mobingi.com", "test", "suhWgG9GEMe9tAo2EneBBDVXAnpkXd9j", "ht9mQMR2n2cKrtjknH9gWyMrzq4YPMao");
+
+                    //Session Auth example
+                    DrupalServicesNode DruNode = new DrupalServicesNode("http://dev-oapi.mobingi.com", "stub" );
+                    DruNode.setAuth(new DrupalAuthSession("admin", "jingan2world"));
                     String responseNodeGet = DruNode.retrieve(1346);
-                    System.out.println("Nodeget!! response" + responseNodeGet);
+                    System.out.println("New Session test response is :" + responseNodeGet);
 
-                    /*
-                    data[0] = new BasicNameValuePair("type", "article");
-                    data[1] = new BasicNameValuePair("title", "Test android create body 1");
-
-                    String bodyValue = "testing123";
-                    data[2] = new BasicNameValuePair("body[und][0][value]", bodyValue);
-                    data[3] = new BasicNameValuePair("body[und][0][format]", "filtered_html");
-                    */
-
-                    // or according to https://gist.github.com/kylebrowning/affc9864487bb1b9c918
-
-                    //data[0] = new BasicNameValuePair("node[type]", "article");
-                    //data[1] = new BasicNameValuePair("node[title]", "Test android create 2");
+                    // According to https://gist.github.com/kylebrowning/affc9864487bb1b9c918
 
                     // Attach file
                     // File upload feature only works on services 3.x-dev 2013-Oct-11
-                    DrupalServicesFile DruFile = new DrupalServicesFile("http://dev-oapi.mobingi.com", "test", "<your api key>", "<your api secret>");
+
+                    //Oauth example
+                    DrupalServicesFile DruFile = new DrupalServicesFile("http://dev-oapi.mobingi.com", "test");
+                    DruFile.setAuth(new DrupalAuthOAuth("suhWgG9GEMe9tAo2EneBBDVXAnpkXd9j", "ht9mQMR2n2cKrtjknH9gWyMrzq4YPMao"));
 
                     BasicNameValuePair[] data = new BasicNameValuePair[2];
                     //Bitmap bm = BitmapFactory.decodeFile("../ic_launcher-web.png");
@@ -68,15 +61,13 @@ public class DemoActivity extends ActionBarActivity {
 
                     data[0] = new BasicNameValuePair("filename", "yourFileNameOnDrupal.png");
                     data[1] = new BasicNameValuePair("file", base64image );
-                    //data[1] = new BasicNameValuePair("uid", "4");
-                    //data[3] = new BasicNameValuePair("filesize", filesize);
-                    //data[4] = new BasicNameValuePair("filemime", "image/png"); //or others
-                    //data[1] = new BasicNameValuePair("target_uri", "pictures/yourFileNameOnDrupal.png");
-
                     String responseFileCreate = DruFile.create(data);
+
+                    //Then bind your file with a node
 
                     // It will print out the response
                     System.out.println("FileCreate!! response " + filesize +responseFileCreate);
+
                 } catch (Exception e) {
                     Log.e("HTTP GET:", e.toString());
                 }

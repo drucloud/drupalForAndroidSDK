@@ -6,11 +6,14 @@ import org.apache.http.message.BasicNameValuePair;
 /**
  * Created by jimmyko on 10/13/13.
  */
-public class DrupalServicesNode extends DrupalOAuth implements DrupalServicesResource {
+//To-do support session auth
+public class DrupalServicesNode extends DrupalServicesBase implements DrupalServicesResource {
 
 
-    public DrupalServicesNode(String baseURI, String endpoint, String tokenKey, String tokenSecret) {
-        super(baseURI, endpoint, tokenKey, tokenSecret);
+    //To-do a method for annoynmous consuming resource
+
+    public DrupalServicesNode(String baseURI, String endpoint) {
+        super(baseURI, endpoint);
         this.setResource("node");
     }
 

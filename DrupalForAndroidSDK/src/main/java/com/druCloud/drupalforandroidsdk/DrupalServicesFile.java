@@ -6,11 +6,11 @@ import org.apache.http.message.BasicNameValuePair;
  * Created by keithyau on 11/7/13.
  */
 
-public class DrupalServicesFile extends DrupalOAuth implements DrupalServicesResource {
+public class DrupalServicesFile extends DrupalServicesBase implements DrupalServicesResource {
 
 
-    public DrupalServicesFile(String baseURI, String endpoint, String tokenKey, String tokenSecret) {
-        super(baseURI, endpoint, tokenKey, tokenSecret);
+    public DrupalServicesFile(String baseURI, String endpoint) {
+        super(baseURI, endpoint);
         this.setResource("file");
     }
 
